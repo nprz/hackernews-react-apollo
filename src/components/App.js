@@ -1,7 +1,9 @@
 import React from "react";
 
 // Components
-import LinkList from "components/LinkList";
+import Header from "components/Header";
+import Pages from "components/Pages";
+import { BrowserRouter as Router } from "react-router-dom";
 
 // Style
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,18 +13,19 @@ const useStyle = makeStyles({
     display: "flex",
     justifyContent: "center",
     paddingTop: 28,
-    height: "calc(100vh - 28px)",
     width: "100vw"
   }
 });
 
+// TODO: adjust trailing commas in prettier
 function App() {
   const classes = useStyle();
 
   return (
-    <div className={classes.root}>
-      <LinkList />
-    </div>
+    <Router className={classes.root}>
+      <Header />
+      <Pages />
+    </Router>
   );
 }
 
