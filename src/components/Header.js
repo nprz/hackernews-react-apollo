@@ -40,6 +40,11 @@ export default function Header() {
   const history = useHistory();
   const authToken = localStorage.getItem(AUTH_TOKEN);
 
+  function handleLogout() {
+    localStorage.removeItem(AUTH_TOKEN);
+    history.push("/");
+  }
+
   return (
     <div className={classes.root}>
       <b>Hacker News</b>
