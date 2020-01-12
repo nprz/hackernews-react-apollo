@@ -3,6 +3,7 @@ import React from "react";
 // Components
 import CreateLink from "components/CreateLink";
 import LinkList from "components/LinkList";
+import Login from "components/Login";
 import { Route, Switch } from "react-router-dom";
 
 // Style
@@ -23,6 +24,9 @@ export default function Pages() {
         </Route>
         <Route path="/create">
           <CreateLink />
+        </Route>
+        <Route path="/login">
+          <Login />
         </Route>
       </Switch>
     </div>

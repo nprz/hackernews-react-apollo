@@ -3,6 +3,10 @@ import React from "react";
 // Components
 import { NavLink } from "react-router-dom";
 
+// Helpers
+import { useHistory } from "react-router-dom";
+import AUTH_TOKEN from "constants";
+
 // Style
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -33,6 +37,8 @@ const useStyles = makeStyles({
 
 export default function Header() {
   const classes = useStyles();
+  const history = useHistory();
+  const authToken = localStorage.getItem(AUTH_TOKEN);
 
   return (
     <div className={classes.root}>
@@ -46,13 +52,28 @@ export default function Header() {
         >
           new
         </NavLink>
-        <NavLink
-          to="/create"
-          className={classes.link}
-          activeClassName={classes.linkActive}
-        >
-          create link
-        </NavLink>
+        {authToken && (
+          <NavLink
+            to="/create"
+            className={classes.link}
+            activeClassName={classes.linkActive}
+          >
+            create link
+          </NavLink>
+        )}
+        {authToken ? (
+          <div onClick={handleLogout} className={classes.link}>
+            logout
+          </div>
+        ) : (
+          <NavLink
+            to="/login"
+            className={classes.link}
+            activeClassName={classes.linkActive}
+          >
+            login
+          </NavLink>
+        )}
       </div>
     </div>
   );

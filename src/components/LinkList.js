@@ -25,7 +25,9 @@ const FEED_QUERY = gql`
 `;
 
 const useStyle = makeStyles({
-  root: {}
+  root: {
+    backgroundColor: "rgb(246,246,239)"
+  }
 });
 
 export default function LinkList() {

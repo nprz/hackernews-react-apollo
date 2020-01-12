@@ -12,8 +12,10 @@ const useStyle = makeStyles({
   root: {
     display: "flex",
     justifyContent: "center",
-    paddingTop: 28,
     width: "100vw"
+  },
+  page: {
+    width: "80%"
   }
 });
 
@@ -22,10 +24,14 @@ function App() {
   const classes = useStyle();
 
   return (
-    <Router className={classes.root}>
-      <Header />
-      <Pages />
-    </Router>
+    <div className={classes.root}>
+      <div className={classes.page}>
+        <Router>
+          <Header />
+          <Pages />
+        </Router>
+      </div>
+    </div>
   );
 }
 
