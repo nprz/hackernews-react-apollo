@@ -16,8 +16,7 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#ff6600",
-    marginBottom: 16
+    backgroundColor: "#ff6600"
   },
   linkContainer: {
     display: "flex",

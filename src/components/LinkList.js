@@ -19,6 +19,16 @@ const FEED_QUERY = gql`
         createdAt
         url
         description
+        postedBy {
+          id
+          name
+        }
+        votes {
+          id
+          user {
+            id
+          }
+        }
       }
     }
   }
@@ -43,9 +53,19 @@ export default function LinkList() {
 
         return (
           <div className={classes.root}>
-            {linksToRender.map(link => (
-              <Link key={link.id} {...link} />
-            ))}
+            {linksToRender.map(link => {
+              const { id, createdAt, url, description, postedBy, votes } = link;
+              return (
+                <Link
+                  key={id}
+                  createdAt={createdAt}
+                  url={url}
+                  description={description}
+                  postedBy={postedBy.name}
+                  votes={votes}
+                />
+              );
+            })}
           </div>
         );
       }}
