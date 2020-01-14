@@ -4,6 +4,7 @@ import React from "react";
 import CreateLink from "components/CreateLink";
 import LinkList from "components/LinkList";
 import Login from "components/Login";
+import Search from "components/Search";
 import { Route, Switch } from "react-router-dom";
 
 // Style
@@ -27,6 +28,9 @@ export default function Pages() {
         </Route>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path="/search">
+          <Search />
         </Route>
       </Switch>
     </div>

@@ -3,9 +3,11 @@ import PropTypes from "prop-types";
 
 // Components
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import { Mutation } from "react-apollo";
 
 // Helpers
 import timeDifferenceForDate from "helpers/timeDifference";
+import gql from "graphql-tag";
 import AUTH_TOKEN from "constants";
 
 // Style
@@ -21,28 +23,54 @@ const useStyle = makeStyles({
   voteContainer: {}
 });
 
+const VOTE_MUTATION = gql`
+  mutation VoteMutation($linkId: ID!) {
+    vote(linkId: $linkId) {
+      id
+      link {
+        id
+        votes {
+          id
+          user {
+            id
+          }
+        }
+      }
+      user {
+        id
+      }
+    }
+  }
+`;
+
 export default function Link({
   description,
   url,
   index,
   votes,
   postedBy,
-  createdAt
+  createdAt,
+  linkId,
+  updateStoreAfterVote
 }) {
   const classes = useStyle();
   const authToken = localStorage.getItem(AUTH_TOKEN);
 
-  function voteForLink() {
-    return "something";
-  }
-
+  // look up: Unpacking fields from objects passed as function parameter, if you forget
+  // the update function syntax
   return (
     <div className={classes.root}>
       <div className={classes.num}>{index}</div>
       {authToken && (
-        <div className={classes.arrow}>
-          <KeyboardArrowUpIcon onClick={voteForLink} />
-        </div>
+        <Mutation
+          mutation={VOTE_MUTATION}
+          variables={{ linkId: linkId }}
+          update={(store, { data: { vote } }) =>
+            updateStoreAfterVote(store, vote, linkId)
+          }
+        >
+          {voteMutation => <KeyboardArrowUpIcon onClick={voteMutation} />}
+        </Mutation>
       )}
       <div className={classes.textContainer}>
         <b>{description}</b>
@@ -51,7 +79,7 @@ export default function Link({
           <div>{votes.length} votes</div>
           <div>posted by: {postedBy.name}</div>
         </div>
-        {timeDifferenceForDate(createAt)}
+        {timeDifferenceForDate(createdAt)}
       </div>
     </div>
   );

@@ -56,6 +56,15 @@ export default function Header() {
         >
           new
         </NavLink>
+        <div>&nbsp;|&nbsp;</div>
+        <NavLink
+          to="/search"
+          className={classes.link}
+          activeClassName={classes.linkActive}
+        >
+          search
+        </NavLink>
+        <div>&nbsp;|&nbsp;</div>
         {authToken && (
           <NavLink
             to="/create"
@@ -65,6 +74,7 @@ export default function Header() {
             create link
           </NavLink>
         )}
+        {authToken && <div>&nbsp;|&nbsp;</div>}
         {authToken ? (
           <div onClick={handleLogout} className={classes.link}>
             logout

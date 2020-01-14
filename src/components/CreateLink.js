@@ -8,6 +8,7 @@ import { Mutation } from "react-apollo";
 // Helpers
 import gql from "graphql-tag";
 import { useHistory } from "react-router-dom";
+import { FEED_QUERY } from "components/LinkList";
 
 // Style
 import { makeStyles } from "@material-ui/core/styles";
@@ -51,6 +52,14 @@ export default function CreateLink() {
         mutation={POST_MUTATION}
         variables={{ description, url }}
         onCompleted={() => history.push("/")}
+        update={(store, { data: { post } }) => {
+          const data = store.readQuery({ query: FEED_QUERY });
+          data.feed.links.unshift(post);
+          store.writeQuery({
+            query: FEED_QUERY,
+            data
+          });
+        }}
       >
         {postMutation => <Button onClick={postMutation}> create link</Button>}
       </Mutation>
