@@ -5,7 +5,7 @@ import CreateLink from "components/CreateLink";
 import LinkList from "components/LinkList";
 import Login from "components/Login";
 import Search from "components/Search";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 // Style
 import { makeStyles } from "@material-ui/core/styles";
@@ -20,7 +20,14 @@ export default function Pages() {
   return (
     <div className={classes.root}>
       <Switch>
-        <Route exact path="/">
+        <Redirect exact from="/" to="/new/1" />
+        <Route path="/new/1">
+          <LinkList />
+        </Route>
+        <Route path="/top">
+          <LinkList />
+        </Route>
+        <Route path="/new/:page">
           <LinkList />
         </Route>
         <Route path="/create">

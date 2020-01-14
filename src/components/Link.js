@@ -8,7 +8,7 @@ import { Mutation } from "react-apollo";
 // Helpers
 import timeDifferenceForDate from "helpers/timeDifference";
 import gql from "graphql-tag";
-import AUTH_TOKEN from "constants";
+import { AUTH_TOKEN } from "../constants";
 
 // Style
 import { makeStyles } from "@material-ui/core/styles";

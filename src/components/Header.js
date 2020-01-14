@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 
 // Helpers
 import { useHistory } from "react-router-dom";
-import AUTH_TOKEN from "constants";
+import { AUTH_TOKEN } from "../constants";
 
 // Style
 import { makeStyles } from "@material-ui/core/styles";
@@ -63,6 +63,14 @@ export default function Header() {
           activeClassName={classes.linkActive}
         >
           search
+        </NavLink>
+        <div>&nbsp;|&nbsp;</div>
+        <NavLink
+          to="/top"
+          className={classes.link}
+          activeClassName={classes.linkActive}
+        >
+          top
         </NavLink>
         <div>&nbsp;|&nbsp;</div>
         {authToken && (

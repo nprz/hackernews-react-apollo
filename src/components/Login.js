@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AUTH_TOKEN from "constants";
+import { AUTH_TOKEN } from "../constants";
 
 // Components
 import { Mutation } from "react-apollo";
