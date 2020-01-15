@@ -104,8 +104,18 @@ export default function LinkList() {
   });
 
   function updateCacheAfterVote(store, createVote, linkId) {
+    const isNewPage = location.pathname.includes("new");
+    const page = parseInt(_get(match, ["params", "page"], 0), 10);
+
+    const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0;
+    const first = isNewPage ? LINKS_PER_PAGE : 100;
+    const orderBy = isNewPage ? "createdAt_DESC" : null;
+
     // getting current state of store
-    const data = store.readQuery({ query: FEED_QUERY });
+    const data = store.readQuery({
+      query: FEED_QUERY,
+      variables: { first, skip, orderBy }
+    });
 
     // finding link in current store
     const votedLink = data.feed.links.find(link => link.id === linkId);
@@ -146,7 +156,7 @@ export default function LinkList() {
 
   function getQueryVariables() {
     const isNewPage = location.pathname.includes("new");
-    const page = parseInt(match.params.page, 10);
+    const page = parseInt(_get(match, ["params", "page"], 0), 10);
 
     const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0;
     const first = isNewPage ? LINKS_PER_PAGE : 100;
@@ -192,9 +202,7 @@ export default function LinkList() {
 
         const linksToRender = getLinksToRender(data);
         const isNewPage = location.pathname.includes("new");
-        const pageIndex = match.params.page
-          ? (match.params.page - 1) * LINKS_PER_PAGE
-          : 0;
+        const pageIndex = match ? (match.params.page - 1) * LINKS_PER_PAGE : 0;
 
         return (
           <div className={classes.root}>
